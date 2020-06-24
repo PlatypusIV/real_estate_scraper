@@ -1,0 +1,9 @@
+{
+    "apartments_for_sale":"INSERT INTO apartments_for_sale VALUES($1,$2,$3,$4,$5,$6,$7)",
+    "houses_for_sale":"",
+    "business_areas_for_sale":"",
+    "plots_for_sale":"",
+    "apartments_for_rent":"",
+    "houses_for_rent":"",
+    "business_areas_for_rent":""
+}

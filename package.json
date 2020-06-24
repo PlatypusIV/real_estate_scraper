@@ -10,7 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
     "node-fetch": "^2.6.0",
-    "puppeteer": "^4.0.0"
+    "pg": "^8.2.1",
+    "postgresql": "0.0.1",
+    "puppeteer": "^4.0.0",
+    "uuid": "^8.2.0"
   }
 }

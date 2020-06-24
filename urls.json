@@ -1,0 +1,3 @@
+{
+    "kv":{"apartments_sale":"https://www.kv.ee/?act=search.simple&last_deal_type=20&company_id=&page=1&orderby=ob&page_size=50&deal_type=1&dt_select=1&county=0&search_type=old&parish=&rooms_min=&rooms_max=&price_min=&price_max=&nr_of_people=&area_min=&area_max=&floor_min=&floor_max=&energy_certs=&keyword=","apartments_rent":"","house_sale":"https://www.kv.ee/?act=search.simple&last_deal_type=5&company_id=&page=1&orderby=ob&page_size=50&deal_type=3&dt_select=5&county=0&search_type=old&parish=&price_min=&price_max=&area_ground_min=&area_ground_max=&detail_plan=&f%5B51%5D=&f%5B57%5D=&keyword="}
+}

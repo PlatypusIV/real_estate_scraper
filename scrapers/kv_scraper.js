@@ -27,11 +27,12 @@ module.exports = class kv_scraper extends Base_Scraper{
             $('tr.object-type-apartment.object-item').each((i,e)=>{
                 const apartment = {};
                apartment.address = $(e).find("a.object-title-a.text-truncate").text().trim();
-               apartment.link = $(e).find("a.object-title-a.text-truncate").attr("href");
+               apartment.linkToPage = $(e).find("a.object-title-a.text-truncate").attr("href");
                apartment.rooms = $(e).find("td.object-rooms.text-center").text();
                apartment.squareMeters = $(e).find("td.object-m2.text-center").text().trim();
                apartment.price = $(e).find("p.object-price-value").text().trim();
                apartment.priceSquareMeters = $(e).find("span.object-m2-price").text().trim();
+               apartment.source= "kv.ee";
                apartments.push(apartment);
             })
 
