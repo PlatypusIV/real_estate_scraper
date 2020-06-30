@@ -1,16 +1,18 @@
 const r = require("./downloader/rest");
 const fs = require("fs");
 const kv_scraper = require("./scrapers/kv_scraper");
+const uusmaa_scraper = require("./scrapers/uusmaa_scraper");
 const { setInterval } = require("timers");
 const { Pool, Client } = require("pg");
 
 const auth = require("./auth.json");
-const {v4:uuidv4} =require('uuid');
+const { v4: uuidv4 } = require('uuid');
 
 const url1 = "https://www.kv.ee/?act=search.simple&last_deal_type=20&company_id=&page=1&orderby=ob&page_size=50&deal_type=1&dt_select=1&county=0&search_type=old&parish=&rooms_min=&rooms_max=&price_min=&price_max=&nr_of_people=&area_min=&area_max=&floor_min=&floor_max=&energy_certs=&keyword=";
 
 const Rest = new r.Rest();
 const kv = new kv_scraper();
+const uusmaa = new uusmaa_scraper();
 
 const kv_apartments = async () => {
     const apartmentsForSale = [];
@@ -36,9 +38,9 @@ const kv_apartments = async () => {
                     clearInterval(kvInterval);
                     Promise.all(promiseArray).then(htmls => {
                         htmls.forEach(html => {
-                            apartmentsForSale.push(kv.get_apartment_links_and_base_data(html));
+                            apartmentsForSale.push(...kv.get_apartment_links_and_base_data(html));
                         });
-                        fs.writeFile("apartmentsForSale.json", JSON.stringify(apartmentsForSale), (err) => { if (err) throw err; })
+                        fs.writeFile("apartmentsForSale.json", JSON.stringify(apartmentsForSale), (err) => { if (err) throw err; });
                     });
                     break;
                 } else {
@@ -64,6 +66,10 @@ const kv_plots = async () => {
 }
 
 const kv_businessPlots = () => {
+
+}
+
+const uusmaa_apartments = () => {
 
 }
 
@@ -93,8 +99,8 @@ const connect_to_db = () => {
         const insertIntoTableQuery = `INSERT INTO apartments_for_sale VALUES($1,$2,$3,$4,$5,$6,$7)`;
 
         client.connect();
-        const {address,linkToPage,rooms,squareMeters,price,priceSquareMeters} = testApt;
-        client.query(insertIntoTableQuery,[uuidv4(),address,linkToPage,rooms,squareMeters,price,priceSquareMeters]).then(res => {
+        const { address, linkToPage, rooms, squareMeters, price, priceSquareMeters } = testApt;
+        client.query(insertIntoTableQuery, [uuidv4(), address, linkToPage, rooms, squareMeters, price, priceSquareMeters]).then(res => {
             console.log(res.rows);
             client.end();
         }).catch(e => {
@@ -110,7 +116,15 @@ const run = () => {
     try {
         // kv_apartments();
         // write_apartments_sale_to_db();
-        connect_to_db();
+        // connect_to_db();
+
+        uusmaa.get_apartments_sale("https://uusmaa.ee").then((data) => {
+            console.log(data);
+            for(let i= 0;i<data.length;i++){
+                console.log(data[i]);
+            }
+            // console.log("gotem");
+        });
     } catch (error) {
         console.log(error);
     }
